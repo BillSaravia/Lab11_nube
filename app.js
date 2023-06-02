@@ -36,7 +36,7 @@ app.use('/images', express.static(path.join(__dirname, 'public', 'images')));
 
 
 app.get('/', (req, res) => {
-  connection.query('SELECT * FROM crudimg', (error, results, fields) => {
+  connection.query('SELECT * FROM lab11', (error, results, fields) => {
     if (error) throw error;
     res.render('index', { data: results });
   });
@@ -46,7 +46,7 @@ app.get('/delete/:id', async (req, res) => {
   const id = req.params.id;
 
   try {
-    const [row] = await connection.promise().query('SELECT imagen FROM crudimg WHERE id = ?', [id]);
+    const [row] = await connection.promise().query('SELECT imagen FROM lab11 WHERE id = ?', [id]);
     const imagen = row[0].imagen;
 
     if (imagen) {
@@ -58,7 +58,7 @@ app.get('/delete/:id', async (req, res) => {
       await s3.deleteObject(params).promise();
     }
 
-    await connection.promise().query('DELETE FROM crudimg WHERE id = ?', [id]);
+    await connection.promise().query('DELETE FROM lab11 WHERE id = ?', [id]);
     res.redirect('/');
   } catch (error) {
     console.error('Error al eliminar la imagen de S3 o el registro de la base de datos: ' + error);
@@ -93,7 +93,7 @@ app.post('/save', upload.single('imagen'), async (req, res) => {
     }
 
     await connection.promise().query(
-      'INSERT INTO crudimg SET ?',
+      'INSERT INTO lab11 SET ?',
       { nombre, descripcion, cantidad, marca, precio, imagen: s3Key }
     );
     res.redirect('/');
@@ -107,12 +107,12 @@ app.get('/edit/:id', async (req, res) => {
   const id = req.params.id;
 
   try {
-    const [row] = await connection.promise().query('SELECT * FROM crudimg WHERE id = ?', [id]);
-    const crudimg = row[0];
+    const [row] = await connection.promise().query('SELECT * FROM lab11 WHERE id = ?', [id]);
+    const lab11 = row[0];
 
-    if (crudimg && crudimg.imagen) {
-      const imageUrl = `/images/${crudimg.imagen}`; // URL de la imagen
-      res.render('edit', { crudimg: crudimg, imageUrl: imageUrl });
+    if (lab11 && lab11.imagen) {
+      const imageUrl = `/images/${lab11.imagen}`; // URL de la imagen
+      res.render('edit', { lab11: lab11, imageUrl: imageUrl });
     } else {
       // Manejo de error si no se encuentra el registro o no hay imagen
       res.status(404).send('Registro no encontrado o sin imagen');
@@ -154,7 +154,7 @@ app.post('/update', upload.single('imagen'), async (req, res) => {
 
   try {
     await connection.promise().query(
-      'UPDATE crudimg SET nombre = ?, descripcion = ?, cantidad = ?, marca = ?, precio = ?, imagen = ? WHERE id = ?',
+      'UPDATE lab11 SET nombre = ?, descripcion = ?, cantidad = ?, marca = ?, precio = ?, imagen = ? WHERE id = ?',
       [nombre, descripcion, cantidad, marca, precio, imagen, id]
     );
     res.redirect('/');
@@ -166,7 +166,7 @@ app.post('/update', upload.single('imagen'), async (req, res) => {
 
 app.get('/delete-all', async (req, res) => {
   try {
-    const [rows] = await connection.promise().query('SELECT imagen FROM crudimg');
+    const [rows] = await connection.promise().query('SELECT imagen FROM lab11');
 
     const deletePromises = rows.map(async (row) => {
       const imagen = row.imagen;
@@ -183,7 +183,7 @@ app.get('/delete-all', async (req, res) => {
 
     await Promise.all(deletePromises);
 
-    await connection.promise().query('DELETE FROM crudimg');
+    await connection.promise().query('DELETE FROM lab11');
 
     res.redirect('/');
   } catch (error) {

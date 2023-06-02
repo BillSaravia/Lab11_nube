@@ -17,27 +17,27 @@
         <h1>EDITAR REGISTRO DE PRODUCTO NUEVO</h1>
         <br>
         <form action="/update" method="POST" enctype="multipart/form-data">
-        <input type="hidden" name="id" value="<%= crudimg.id %>">
+        <input type="hidden" name="id" value="<%= lab11.id %>">
         <div>
           <div class="mb-3">
             <label for="nombre" class="form-label"><b>NOMBRE :</b></label>
-            <input type="text" class="form-control" id="nombre" name="nombre" value="<%= crudimg.nombre %>">
+            <input type="text" class="form-control" id="nombre" name="nombre" value="<%= lab11.nombre %>">
           </div>
           <div class="mb-3">
             <label for="descripcion" class="form-label"><b>DESCRIPCION :</b></label>
-            <input type="text" class="form-control" id="descripcion" name="descripcion" value="<%= crudimg.descripcion %>">
+            <input type="text" class="form-control" id="descripcion" name="descripcion" value="<%= lab11.descripcion %>">
           </div>
           <div class="mb-3">
             <label for="cantidad" class="form-label"><b>CANTIDAD :</b></label>
-            <input type="number" class="form-control" id="cantidad" name="cantidad" value="<%= crudimg.cantidad %>">
+            <input type="number" class="form-control" id="cantidad" name="cantidad" value="<%= lab11.cantidad %>">
           </div>
           <div class="mb-3">
             <label for="marca" class="form-label"><b>MARCA :</b></label>
-            <input type="text" class="form-control" id="marca" name="marca" value="<%= crudimg.marca %>">
+            <input type="text" class="form-control" id="marca" name="marca" value="<%= lab11.marca %>">
           </div>
           <div class="mb-3">
             <label for="precio" class="form-label"><b>PRECIO :</b></label>
-            <input type="number" class="form-control" id="precio" name="precio" value="<%= crudimg.precio %>">
+            <input type="number" class="form-control" id="precio" name="precio" value="<%= lab11.precio %>">
           </div>
           <div class="mb-3">
             <label for="imagen" class="form-label"><b>IMAGEN :</b></label>
@@ -45,8 +45,8 @@
             <br>
             <label style="padding: 10px;">
               <b style="color:red" class="me-3">IMAGEN INGRESADA ANTERIORMENTE:</b>
-              <!-- Poniendo la ruta (src="/images/ crudimg.imagen ") se pueden ver las imagenes locales! -->
-              <img src="https://lab09-bs.s3-sa-east-1.amazonaws.com/<%= crudimg.imagen %>" alt="" height="80" style="border-radius: 10px;">
+              <!-- Poniendo la ruta (src="/images/ lab11.imagen ") se pueden ver las imagenes locales! -->
+              <img src="https://lab09-bs.s3-sa-east-1.amazonaws.com/<%= lab11.imagen %>" alt="" height="80" style="border-radius: 10px;">
             </label>
           </div>
           <br>
